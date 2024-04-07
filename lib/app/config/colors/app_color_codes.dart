@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class AppColorCodes{
+  static final backGroundGreen = HexColor('#B1FF81');
+  static final alaBaster = HexColor('Alabaster');
+  static const white = Colors.white;
+  static final textBlack = HexColor('#282828');
+  static final pricesPerfume = HexColor('#FF7ECB');
+  static final selectionGreen = HexColor('#34A853');
+  static final black = HexColor('#000000');
+  static final greyBackGround = HexColor('#f4f3f3');
+  static final greyText = HexColor('#b0b0b0');
+  static const greyButtonBorder = Color(0xFFE6E6E6);
+  static const greyBodyText = Color(0xFFB0B0B0);
+  static const neutralBlack = Colors.black;
+  static const transparentGreen = Color(0xFFEEFAF1);
+  static const greenBorder = Color(0xFF54CC72);
+  static const redError = Color(0xFFFF757C);
+  static const cupertinoSheetBlue = Color(0xFF007AFF);
+  static const lightGreen = Color(0xFFB0FF80);
+  static final black200 = HexColor('#8A8A8A');
+  static const textGrey = Color(0xFF8A8A8A);
+  static const neutralGrey = Color(0xFFF4F3F3);
+  static const pinkColor = Color(0xFFDB75FF);
+  static const pinkCard = Color(0xFF8B00F7);
+  static const dealSubtitleColor = Color(0xFF8A8A8A);
+  static const textBlackOnGreen = Color(0xFF333333);
+  static const black33 = Color(0xFF333333);
+  static final imageGreyBackGround = HexColor('#eae8e9');
+  static final textFieldLabelColor = const Color(0x3C3C4399).withOpacity(.6);
+  static final yellow = HexColor('#FFE482');
+  static final purple = HexColor('#8B00F8');
+  static final red = HexColor('#E86A71');
+  static final green = HexColor('#3C9151');
+  static final lightRed = HexColor('#FFD4D6');
+  static final darkRed = HexColor('#6B3134');
+  static final amber = HexColor('#F2BE00');
+  static final red_50 = HexColor('#F14650');
+  static const transparent = Colors.transparent;
+  static final grey_54 = HexColor('#545454');
+}

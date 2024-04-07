@@ -1,0 +1,15 @@
+
+{
+  "profile": "പ്രൊഫൈൽ",
+  "logout": "പുറത്തുകടക്കുക",
+  "login": "ലോഗിൻ ചെയ്യുക",
+  "name": "പേര്",
+  "email": "ഇമെയിൽ",
+  "password": "പാസ്വേഡ്",
+  "password_confirmation": "പാസ്‌വേഡ് സ്ഥിരീകരണം",
+  "select_theme": "തീം തിരഞ്ഞെടുക്കുക",
+  "select_language": "ഭാഷ തിരഞ്ഞെടുക്കുക",
+  "home": "ഹോം",
+  "favorites": "പ്രിയപ്പെട്ടവ",
+  "personal": "വ്യക്തി"
+}

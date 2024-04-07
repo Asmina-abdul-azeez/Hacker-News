@@ -1,0 +1,14 @@
+{
+  "profile": "Profile",
+  "logout": "Logout",
+  "login": "Login",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "password_confirmation": "Password Confirmation",
+  "select_theme": "Select Theme",
+  "select_language": "Select Language",
+  "home": "Home",
+  "favorites": "Favorites",
+  "person": "Person"
+}

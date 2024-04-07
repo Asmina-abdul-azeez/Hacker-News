@@ -1,0 +1,14 @@
+{
+  "profile": "प्रोफ़ाइल",
+  "logout": "लॉग आउट",
+  "login": "लॉग इन करें",
+  "name": "नाम",
+  "email": "ईमेल",
+  "password": "पासवर्ड",
+  "password_confirmation": "पासवर्ड की पुष्टि कीजिये",
+  "select_language": "भाषा चुनें",
+  "select_theme": "चुनिंदा विषय",
+  "home": "घर",
+  "favorites": "पसंदीदा",
+  "person": "व्यक्ति"
+}

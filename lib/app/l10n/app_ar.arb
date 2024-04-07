@@ -1,0 +1,15 @@
+{
+  "profile": "الملف الشخصي",
+  "logout": "تسجيل خروج",
+  "login": "تسجيل الدخول",
+  "name": "الاسم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "password_confirmation": "تأكيد كلمة المرور",
+  "select_theme": "اختيار السمة",
+  "select_language": "اختيار اللغة",
+  "home": "الرئيسية",
+  "favorites": "المفضلة",
+  "person": "شخص"
+}
+
