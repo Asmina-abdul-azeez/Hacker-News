@@ -21,7 +21,7 @@ class SplashPage extends StatelessWidget {
     return BlocListener<SplashBloc, SplashState>(
       listener: (BuildContext context, state) {
         if (state.splashFinished) {
-          context.go(Routes.authRoutes.parentRoute);
+          context.go(Routes.appRoutes.parentRoute);
         }
       },
       child: const Scaffold(),

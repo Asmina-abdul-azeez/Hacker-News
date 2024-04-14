@@ -6,15 +6,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @module
 abstract class AppModule {
-  @lazySingleton
-  Dio dio(@Named('BaseUrl') String url) => Dio(BaseOptions(baseUrl: url));
 
   @preResolve // if you need to pre resolve the value
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   @preResolve
+  @injectable
+  Future<Dio> loadDio({required EnvModel envModel}) async {
+    return Dio(BaseOptions(baseUrl: envModel.baseUrl));
+  }
+
+  @preResolve
   Future<EnvModel> loadEnvFile() async {
     await dotenv.load();
-    return EnvModel(baseUrl: dotenv.env['BASE_URL'] ?? '');
+    return EnvModel(baseUrl: dotenv.env['baseUrl'] ?? '');
   }
 }

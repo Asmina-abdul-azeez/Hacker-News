@@ -23,7 +23,7 @@ class AuthRepoImpl extends AuthRepo {
       //         showMessage: true)));
       return Future.value(Resource.success(true,
           uiMessageModel:
-              UIMessageModel('Success', 'OTP generated successfully', true),),);
+              UIMessageModel('Success', 'OTP generated successfully'),),);
     } catch (e) {
       return Future.value(Resource.error(e));
     }

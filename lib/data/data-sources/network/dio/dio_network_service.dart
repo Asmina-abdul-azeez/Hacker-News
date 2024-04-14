@@ -5,45 +5,40 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hacker_news/app/app_utils/logger.dart';
-import 'package:hacker_news/app/di/injectable.dart';
 import 'package:hacker_news/app/errors/exceptions/app_exceptions.dart';
 import 'package:hacker_news/app/errors/exceptions/network_exceptions.dart';
 import 'package:hacker_news/app/models/rest_error_model.dart';
-import 'package:hacker_news/data/data-sources/network'
-    '/api_request_representable.dart';
-import 'package:hacker_news/data/data-sources/network'
-    '/api_response.dart';
-import 'package:hacker_news/data/data-sources/network'
-    '/network_service.dart';
+import 'package:hacker_news/app/services/token_service.dart';
+import 'package:hacker_news/data/data-sources/network/api_request_representable.dart';
+import 'package:hacker_news/data/data-sources/network/api_response.dart';
+import 'package:hacker_news/data/data-sources/network/network_service.dart';
+
 import 'package:injectable/injectable.dart';
 
 /// The [DioNetWorkService] class...
-@Injectable(as: NetworkService)
+@Singleton(as: NetworkService)
 class DioNetWorkService extends NetworkService {
+  DioNetWorkService(
+      {required Dio client, required TokenService tokenRefreshService})
+      : _client = client,
+        _tokenRefreshService = tokenRefreshService,
+        super() {
+    // initializeDio();
+  }
+
   /// The [DioNetWorkService] constructor...
 
   bool socketErrorOccurred = false;
 
-  void initializeDio(String baseUrl) {
-    client = getIt.get<Dio>();
+  TokenService _tokenRefreshService;
 
-    if (kDebugMode) {
-      client.interceptors.add(
-        LogInterceptor(
-          responseBody: true,
-          requestBody: true,
-          logPrint: (v) {
-            appLogger.d(v.toString());
-          },
-        ),
-      );
-    }
-    client.options.baseUrl = baseUrl;
-  }
+  // void initializeDio() {
+  //   _client.interceptors.addAll(
+  //       [tokenInterceptor(_tokenRefreshService, _client), prettyDioLogger]);
+  // }
 
-  late Dio client;
+  final Dio _client;
 
   /// Sends an HTTP request and returns the response.
   ///
@@ -69,31 +64,34 @@ class DioNetWorkService extends NetworkService {
     try {
       var request = requestReceived;
       final token = <String, String>{};
-      // final token = await authService.getAccessHeader();
       request = request.copyWith(
         headers: {...?requestReceived.headers, ...token, ...{}},
       );
 
       if (socketErrorOccurred) {
         ///if a socket error occurred earlier then reset the dio
-        initializeDio('');
+        // initializeDio();
         socketErrorOccurred = false;
       }
-      appLogger..d('REQUEST DETAILS')
+      appLogger
+        ..d('REQUEST DETAILS')
         ..d('REQUEST DETAILS')
         ..d(requestReceived.toString())
-        ..d(client.options.queryParameters)
-        ..d(client.options.baseUrl)
-        ..d(client.options.baseUrl);
+        ..d(_client.options.queryParameters)
+        ..d(_client.options.baseUrl)
+        ..d(_client.options.baseUrl);
 
       // Send the request using Dio
       final startTime = DateTime.now();
-      final response = await client.request(
+      final response = await _client.request(
         request.url,
         options: Options(
-          method: request.method.string,
-          headers: request.headers,
-        ),
+            method: request.method.string,
+            headers: request.headers,
+            persistentConnection: true,
+            extra: {
+              'skipAuthHeaders': true,
+            }),
         data: request.body,
         queryParameters: request.query,
       );
@@ -116,7 +114,7 @@ class DioNetWorkService extends NetworkService {
       throw FetchDataException.networkException();
     } on DioException catch (e) {
       // Log error details for debugging purposes
-      appLogger.e(e.requestOptions);
+      appLogger.e(e.requestOptions.toString());
       if (e.error is SocketException) {
         throw FetchDataException.networkException();
       }
@@ -146,11 +144,9 @@ class DioNetWorkService extends NetworkService {
     }
     RestError? restApiError;
     try {
-      restApiError =
-          RestErrorDetails.errorFromJson(response.data as Map<String, dynamic>);
+      restApiError = RestError.fromMap(response.data as Map<String, dynamic>);
     } catch (e) {
-      restApiError =
-          RestErrorDetails.serverUnknownError(response.statusCode ?? 0);
+      restApiError = RestError.unknownError();
     }
 
     switch (response.statusCode) {
@@ -199,6 +195,11 @@ class DioNetWorkService extends NetworkService {
   @override
   Future<APIResponse> post(APIRequestRepresentable apiRequestRepresentable) {
     return request(apiRequestRepresentable.copyWith(method: HTTPMethod.post));
+  }
+
+  @override
+  Future<APIResponse> put(APIRequestRepresentable apiRequestRepresentable) {
+    return request(apiRequestRepresentable.copyWith(method: HTTPMethod.put));
   }
 
   @override

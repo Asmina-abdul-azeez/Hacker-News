@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 
 class UIMessageModel {
-  UIMessageModel(this._title, this._message, this._showMessage) {
+  UIMessageModel(this._title, this._message, {this.displayMessage = true}) {
     messageShown = false;
   }
 
   final String _title;
   String _message;
-  final bool _showMessage;
+  final bool displayMessage;
   bool messageShown = false;
 
   String get message {
@@ -20,7 +20,7 @@ class UIMessageModel {
   }
 
   bool get showMessage {
-    return _showMessage && !messageShown;
+    return displayMessage && !messageShown;
   }
 
   set message(String message) {

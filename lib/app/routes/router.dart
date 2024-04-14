@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hacker_news/app/routes/routes.dart';
-import 'package:hacker_news/presentation/app_home/app_home_view.dart';
-import 'package:hacker_news/presentation/login/login_view.dart';
-import 'package:hacker_news/presentation/otp_verification/otp_verification_view.dart';
-import 'package:hacker_news/presentation/sign_up/sign_up_view.dart';
-import 'package:hacker_news/presentation/splash/splash_view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hacker_news/app/routes/routes.dart';
+import 'package:hacker_news/presentation/news/news_page.dart';
+import 'package:hacker_news/presentation/splash/splash_view.dart';
+import 'package:hacker_news/presentation/web_view/web_view_page.dart';
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
@@ -18,38 +16,23 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.authRoutes.parentRoute,
+      path: Routes.appRoutes.parentRoute,
       builder: (BuildContext context, GoRouterState state) {
-        return const LoginPage();
+        return const NewsPage();
       },
-      routes: <RouteBase>[
+      routes: [
         GoRoute(
-          path: Routes.authRoutes.loginScreen,
+          path: Routes.appRoutes.webView,
           builder: (BuildContext context, GoRouterState state) {
-            return const LoginPage();
-          },
-        ),
-        GoRoute(
-          path: Routes.authRoutes.signupScreen,
-          builder: (BuildContext context, GoRouterState state) {
-            return const SignUpPage();
-          },
-        ),
-        GoRoute(
-          path: Routes.authRoutes.verifyOtpScreen,
-          builder: (BuildContext context, GoRouterState state) {
-            return const OtpVerificationPage();
+            final url = state.extra as String?;
+            return WebViewPage(
+              url: url ?? '',
+            );
           },
         ),
       ],
     ),
-    GoRoute(
-      path: Routes.appRoutes.parentRoute,
-      builder: (BuildContext context, GoRouterState state) {
-        return const AppHomePage();
-      },
-    ),
   ],
 );
 
- GoRouter get router => _router;
+GoRouter get router => _router;
