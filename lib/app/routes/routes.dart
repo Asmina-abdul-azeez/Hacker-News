@@ -12,6 +12,7 @@ abstract class AppRouteBase {
   late String parentRoute;
 }
 
+
 class AuthRoutes implements AppRouteBase {
   AuthRoutes._();
 
@@ -47,6 +48,10 @@ class AppRoutes implements AppRouteBase {
 
   String get profileRoute => '/app-home/profile';
 
+  String get webView => 'web-view';
+
+  String get webViewRoute => '/app-home/web-view';
+
   @override
   String parentRoute = '/app-home';
 }
@@ -61,3 +66,15 @@ class SplashRoutes implements AppRouteBase {
   @override
   String parentRoute = '/splash';
 }
+
+class WebViewRoutes implements AppRouteBase {
+  WebViewRoutes._();
+
+  String get webView => '/web-view';
+
+  String get webViewRoute => '/web-view';
+
+  @override
+  String parentRoute = '/web-view';
+}
+

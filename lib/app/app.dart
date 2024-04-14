@@ -14,7 +14,6 @@ import 'package:hacker_news/domain/language/use_cases/get_selected_language_use_
 import 'package:hacker_news/domain/language/use_cases/set_languages_use_case.dart';
 import 'package:hacker_news/domain/theme/entities/app_theme.dart';
 import 'package:hacker_news/presentation/app_theme/app_theme_view.dart';
-import 'package:hacker_news/presentation/auth/auth_view.dart';
 import 'package:hacker_news/presentation/language/language_cubit.dart';
 import 'package:hacker_news/presentation/language/language_view.dart';
 
@@ -29,8 +28,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       ensureScreenSize: true,
-      child: AuthWrapper(
-        child: AppThemeWrapper(
+      child:  AppThemeWrapper(
           builder: (context, AppTheme? appTheme) {
             return LanguageWrapper(
               builder: (context, Language? language) {
@@ -48,7 +46,7 @@ class MyApp extends StatelessWidget {
             );
           },
         ),
-      ),
+     
     );
   }
 }
